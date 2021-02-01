@@ -1,5 +1,5 @@
 import Chat from '../Chat/Chat';
-import Chats from '../Chats/Chats';
+import Chats from '../Chats/ChatsContainer';
 import Header from '../Header/Header';
 import './Main.css';
 

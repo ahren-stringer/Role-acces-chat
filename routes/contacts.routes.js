@@ -3,11 +3,14 @@ const { Router } = express;
 const router=Router()
 import User from '../models/User.js'
 
-router.get('/profile/:userId', async (req, res) => {
-        try { 
-            console.log(req.params.userId)           
+router.get('/contacts/:userId', async (req, res) => {
+        try {            
             const user = await User.findById(req.params.userId);
-            console.log(user)
+            let contacts = user.contacts;
+            let arr=[];
+            for(let i=0;i<contacts.length;i++){
+                let contact=await User.findById(contacts[i])
+            }
             res.json(user)
         } catch (e) {
             res.status(500).json({ message: 'Ошибка пользователя' })

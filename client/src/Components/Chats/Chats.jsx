@@ -1,7 +1,9 @@
+import { NavLink } from 'react-router-dom';
 import './Chats.css';
 
 function Chats() {
-    
+    let contacts=true;
+
     return <div className='im_dialogs_col_wrap noselect'>
         <div className='im_dialogs_panel'>
             <div className='im_dialogs_search'>
@@ -14,7 +16,8 @@ function Chats() {
         <div className='im_dialogs_col' style={{height:'100vh'}}>
             <div className='im_dialogs_wrap nano has-scrollbar active-scrollbar'>
                 <div className='im_dialogs_scrollable_wrap nano-content' style={{right:'-17px'}}>
-                    <ul className='nav nav-pills nav-stacked'>
+                    {contacts ? <NavLink to='/users'>Добавить</NavLink>
+                    :<ul className='nav nav-pills nav-stacked'>
                         <li className='im_dialog_wrap'> 
                             <a className='im_dialog'>
                                 <div className='im_dialog_meta pull-right text-right'>
@@ -60,7 +63,7 @@ function Chats() {
                                 </div>
                             </a>
                         </li>
-                    </ul>
+                    </ul>}
                 </div>
                 <div className='nano-pane' style={{display: 'block'}}>
 

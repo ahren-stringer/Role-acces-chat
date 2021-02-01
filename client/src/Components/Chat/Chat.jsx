@@ -1,7 +1,8 @@
 import './Chat.css';
 
 function Chat() {
-    let chosen = true
+    let chosen = true;
+    
     return <div className='im_history_col_wrap noselect im_history_loaded'>
         {!chosen ? <div className='im_history_not_selected_wrap'>
             <div className='im_history_not_selected vertical-aligned' style={{ paddingTop: '229px', paddingBottom: '229px' }}>

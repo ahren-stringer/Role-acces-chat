@@ -3,25 +3,25 @@ import mongoose from 'mongoose'
 import Cors from "cors"
 import auth from './routes/auth.routes.js'
 import profile from './routes/profile.routes.js'
-// import posts from './routes/posts.routes.js'
+import users from './routes/users.routes.js'
 // import category from './routes/category.routes.js'
 
 //API Config
 const app = expess();
 const port = process.env.PORT || 8001;
 const connection_url = 'mongodb+srv://Pavel:4xSzHb2SeAdAydKR@cluster0.xwykf.mongodb.net/role_access_chat?retryWrites=true&w=majority'
-    //'4xSzHb2SeAdAydKR'
-    //Middlewares
+//'4xSzHb2SeAdAydKR'
+//Middlewares
 app.use(expess.json())
 app.use(Cors())
-    // Авторизация
+// Авторизация
 app.use('', auth)
-    //     //Пользовательские данные
+//     //Пользовательские данные
 app.use('', profile)
-    //     // Посты
-    // app.use('', posts)
-    //     // Категории
-    // app.use('', category)
+// Пользователи
+app.use('', users)
+//     // Категории
+// app.use('', category)
 
 //DB Config
 mongoose.connect(connection_url, {
