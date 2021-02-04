@@ -4,7 +4,9 @@ import Cors from "cors"
 import auth from './routes/auth.routes.js'
 import profile from './routes/profile.routes.js'
 import users from './routes/users.routes.js'
-// import category from './routes/category.routes.js'
+import dialogs from './routes/dialogs.routes.js'
+import messages from './routes/messages.routes.js'
+import updateLastSeen from './middlewares/updateLastSeen.js'
 
 //API Config
 const app = expess();
@@ -14,14 +16,17 @@ const connection_url = 'mongodb+srv://Pavel:4xSzHb2SeAdAydKR@cluster0.xwykf.mong
 //Middlewares
 app.use(expess.json())
 app.use(Cors())
+app.use(updateLastSeen)
 // Авторизация
 app.use('', auth)
 //     //Пользовательские данные
 app.use('', profile)
 // Пользователи
 app.use('', users)
-//     // Категории
-// app.use('', category)
+// Диалоги
+app.use('', dialogs)
+// Сообщения
+app.use('', messages)
 
 //DB Config
 mongoose.connect(connection_url, {
