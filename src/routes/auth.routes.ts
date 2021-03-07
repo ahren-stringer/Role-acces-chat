@@ -1,20 +1,21 @@
 import express from 'express';
 const { Router } = express;
 import bcrypt from 'bcrypt'
-import User from '../models/User.js'
+import User from '../models/User'
 import jwt from 'jsonwebtoken'
-import expressValidator from 'express-validator';
-const { check, validationResult } = expressValidator;
+// import expressValidator from 'express-validator';
+// const { check, validationResult } = expressValidator;
 
 const router = Router()
 
 router.post(
-    '/register', [
-    check('email', 'Неправильный email').isEmail(),
-    check('password', 'Минимальная длина пароля 6 символов')
-        .isLength({ min: 6 })
-],
-    async (req, res) => {
+    '/register',
+//      [
+//     check('email', 'Неправильный email').isEmail(),
+//     check('password', 'Минимальная длина пароля 6 символов')
+//         .isLength({ min: 6 })
+// ],
+    async (req: express.Request, res: express.Response) => {
         try {
 
             // const errors = validationResult(req)
@@ -51,19 +52,20 @@ router.post(
     })
 
 router.post(
-    '/login', [
-    check('email', 'Введите корректный email').normalizeEmail().isEmail(),
-    check('password', 'Введите пароль').exists()
-],
-    async (req, res) => {
+    '/login',
+//      [
+//     check('email', 'Введите корректный email').normalizeEmail().isEmail(),
+//     check('password', 'Введите пароль').exists()
+// ],
+    async (req: express.Request, res: express.Response) => {
         try {
-            const errors = validationResult(req)
-            if (!errors.isEmpty()) {
-                return res.status(400).json({
-                    errors: errors.array(),
-                    message: 'Некоректные данные'
-                })
-            }
+            // const errors = validationResult(req)
+            // if (!errors.isEmpty()) {
+            //     return res.status(400).json({
+            //         errors: errors.array(),
+            //         message: 'Некоректные данные'
+            //     })
+            // }
 
             const { email, password } = req.body
             const user = await User.findOne({ email })
@@ -73,7 +75,7 @@ router.post(
             }
             const isMatch = bcrypt.compare(password, user.password)
             if (!isMatch) {
-                return res, status(400).json({ message: 'Неверный пароль' })
+                return res.status(400).json({ message: 'Неверный пароль' })
             }
 
             const token = jwt.sign({ userId: user.id },
@@ -85,10 +87,6 @@ router.post(
                 userId: user.id,
                 name: user.name,
                 email: user.email,
-                contacts:user.contacts,
-                messages: user.messages,
-                invites: user.invites,
-                groups:user.groups 
             })
         } catch (e) {
             res.status(500).json({ message: 'Ошибка авторизации' })

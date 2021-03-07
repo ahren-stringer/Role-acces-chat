@@ -1,22 +1,26 @@
 import expess from 'express'
 import mongoose from 'mongoose'
 import Cors from "cors"
-import auth from './routes/auth.routes.js'
-import profile from './routes/profile.routes.js'
-import users from './routes/users.routes.js'
-import dialogs from './routes/dialogs.routes.js'
-import messages from './routes/messages.routes.js'
-import updateLastSeen from './middlewares/updateLastSeen.js'
+import auth from './routes/auth.routes'
+import profile from './routes/profile.routes'
+import users from './routes/users.routes'
+import dialogs from './routes/dialogs.routes'
+import messages from './routes/messages.routes'
+import updateLastSeen from './middlewares/updateLastSeen'
+import checkAuth from './middlewares/checkAuth'
+import path from "path"
 
 //API Config
 const app = expess();
 const port = process.env.PORT || 8001;
-const connection_url = 'mongodb+srv://Pavel:4xSzHb2SeAdAydKR@cluster0.xwykf.mongodb.net/role_access_chat?retryWrites=true&w=majority'
+const connection_url =  'mongodb://localhost:27017/role_acces_chat'
+'mongodb+srv://Pavel:4xSzHb2SeAdAydKR@cluster0.xwykf.mongodb.net/role_access_chat?retryWrites=true&w=majority'
 //'4xSzHb2SeAdAydKR'
 //Middlewares
 app.use(expess.json())
 app.use(Cors())
 app.use(updateLastSeen)
+app.use(checkAuth)
 // Авторизация
 app.use('', auth)
 //     //Пользовательские данные

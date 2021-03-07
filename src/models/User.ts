@@ -1,18 +1,29 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema, Document } from "mongoose";
 import pkg from 'validator';
 const { isEmail } = pkg;
 
-const schema = new mongoose.Schema({
+export interface IUser extends Document {
+    name: string;
+    email: string;
+    password: string;
+    confirmed: boolean;
+    avatar: string;
+    confirm_hash: string;
+    last_seen: Date;
+    data?: IUser;
+  }
+
+const schema: Schema = new Schema({
     name: {
         type: String,
         required: 'Name is required',
-        unique: true
+        // unique: true
     },
     email: {
         type: String,
-        required: 'Email is required',
+        require: "Email address is required",
+        validate: [isEmail, "Invalid email"],
         unique: true,
-        validate: [isEmail, 'Invalid Email']
     },
     password: {
         type: String,
@@ -28,12 +39,8 @@ const schema = new mongoose.Schema({
         type: Date,
         default: new Date(),
     },
-    // contacts: [],
-    // messages: [],
-    // invites:[],
-    // groups:[]
 }, {
     timestamps: true
 });
 
-export default mongoose.model('User', schema)
+export default mongoose.model<IUser>('User', schema)

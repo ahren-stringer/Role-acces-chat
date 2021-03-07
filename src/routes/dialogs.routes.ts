@@ -1,10 +1,10 @@
 import express from 'express';
 const { Router } = express;
 const router = Router()
-import Dialog from '../models/Dialog.js'
-import Message from '../models/Message.js'
+import Dialog from '../models/Dialog'
+import Message from '../models/Message'
 
-router.post('/dialogs', async (req, res) => {
+router.post('/dialogs', async (req: express.Request, res: express.Response) => {
     try {
         let {author, partner}=req.body;
         let dialog = new Dialog({author, partner});
@@ -24,7 +24,7 @@ router.post('/dialogs', async (req, res) => {
     }
 })
 
-router.get('/dialogs/:id',  (req, res) => {
+router.get('/dialogs/:id',  (req: express.Request, res: express.Response) => {
 
     Dialog.find({ author: req.params.id })
         .populate(['author', 'partner'])
@@ -35,7 +35,7 @@ router.get('/dialogs/:id',  (req, res) => {
 
 })
 
-router.delete('/dialogs/:id', async (req, res) => {
+router.delete('/dialogs/:id', async (req: express.Request, res: express.Response) => {
     try {
         await Dialog.findByIdAndRemove({_id:req.params.id});
         res.json({message: "Пользователь удален"})

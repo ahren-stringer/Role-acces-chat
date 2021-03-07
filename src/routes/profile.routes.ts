@@ -1,9 +1,9 @@
 import express from 'express';
 const { Router } = express;
 const router=Router()
-import User from '../models/User.js'
+import User from '../models/User'
 
-router.get('/profile/:userId', async (req, res) => {
+router.get('/profile/:userId', async (req: express.Request, res: express.Response) => {
         try { 
             console.log(req.params.userId)           
             const user = await User.findById(req.params.userId);
