@@ -7,7 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import { setProfile,setLoaded } from '../../redux/authReduser'
+import { setProfile, setLoaded } from '../../redux/authReduser'
 import axios from 'axios';
 import { Field, reduxForm } from 'redux-form'
 import { NavLink, withRouter } from "react-router-dom";
@@ -99,7 +99,7 @@ function Auth(props) {
             let req = await axios.post('http://localhost:8001/login', { ...formData })
             debugger
             props.setProfile(
-                req.data.token, 
+                req.data.token,
                 req.data.userId,
                 req.data.name,
                 req.data.email,
@@ -121,7 +121,25 @@ function Auth(props) {
             </CardContent>
 
             <AuthForm onSubmit={submit} />
-
+            <form onSubmit={e=>{
+                e.preventDefault()
+                axios.post('http://localhost:8001/users/register',{
+                    "name":"user1",
+                    "password": "12345",
+                    "email":"1@mail.ru"
+                })
+                }}>
+                <TextField
+                    label="name"
+                />
+                <TextField
+                    label="email"
+                />
+                <TextField
+                    label="password"
+                />
+                <Button type="submit" variant="contained" style={{ marginRight: '8px' }}>отправить</Button>
+            </form>
         </Card>
     );
 }
@@ -132,4 +150,4 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { setProfile,setLoaded })(withRouter(Auth));
+export default connect(mapStateToProps, { setProfile, setLoaded })(withRouter(Auth));

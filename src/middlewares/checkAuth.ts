@@ -4,7 +4,7 @@ import { DecodedData } from "../utils/verifyJWT";
 import { IUser } from "../models/User";
 
 export default (
-  req: express.Request,
+  req: any,
   res: express.Response,
   next: express.NextFunction
 ): void => {
@@ -21,9 +21,9 @@ export default (
 
   if (token) {
     verifyJWTToken(token)
-      .then((user: DecodedData | null) => {
+      .then((user) => {
         if (user) {
-          req.user = user.data._doc;
+          req.user = user;
         }
         next();
       })

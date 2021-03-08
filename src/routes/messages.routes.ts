@@ -25,7 +25,7 @@ router.get('/messages/:dialog', (req: express.Request, res: express.Response): v
 
      Message.findOne({ dialog: dialogId })
         .populate(['dialog'])
-        .exec((err, messages) => {
+        .exec((err: Error, messages: any) => {
             if (err) return res.status(404).json({ message: "Сообщения не найдены" })
             return res.json(messages)
         });

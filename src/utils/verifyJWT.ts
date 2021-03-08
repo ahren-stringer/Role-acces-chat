@@ -1,6 +1,6 @@
 import jwt, { VerifyErrors } from "jsonwebtoken";
 import { IUser } from "../models/User";
-import config from "../config";
+// import config from "../config";
 
 export interface DecodedData {
   data: {
@@ -8,21 +8,21 @@ export interface DecodedData {
   };
 }
 
-export default (token: string): Promise<DecodedData | null> =>
+export default (token: string) =>
   new Promise(
-    (
-      resolve: (decodedData: DecodedData) => void,
-      reject: (err: VerifyErrors) => void
+    ( resolve,reject
+      // resolve: (decodedData: DecodedData) => void,
+      // reject: (err: VerifyErrors) => void
     ) => {
       jwt.verify(
         token,
-        config.jwt || "",
-        (err: VerifyErrors, decodedData) => {
+        "jWqdGi6J5RTHOied8mxl" || "",
+        (err, decodedData) => {
           if (err || !decodedData) {
             return reject(err);
           }
 
-          resolve(decodedData as DecodedData);
+          resolve(decodedData);
         }
       );
     }

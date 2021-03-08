@@ -28,7 +28,7 @@ router.get('/dialogs/:id',  (req: express.Request, res: express.Response) => {
 
     Dialog.find({ author: req.params.id })
         .populate(['author', 'partner'])
-        .exec((err, dialog) => {
+        .exec((err: any, dialog:any) => {
             if (err) return res.status(404).json({ message: "Диалог не найден" })
             return res.json(dialog)
         });

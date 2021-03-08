@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { reduce } from "lodash";
-import config from '../config'
+// import config from '../config.js'
 
 interface ILoginData {
   email: string;
@@ -21,7 +21,7 @@ export default (user: ILoginData) => {
         {}
       ),
     },
-    config.jwt || "",
+    "jWqdGi6J5RTHOied8mxl" || "",
     {
       expiresIn: 10080, // записать в config
       algorithm: "HS256",

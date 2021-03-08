@@ -12,10 +12,10 @@ import path from "path"
 
 //API Config
 const app = expess();
-const port = process.env.PORT || 8001;
-const connection_url =  'mongodb://localhost:27017/role_acces_chat'
-'mongodb+srv://Pavel:4xSzHb2SeAdAydKR@cluster0.xwykf.mongodb.net/role_access_chat?retryWrites=true&w=majority'
-//'4xSzHb2SeAdAydKR'
+const port : string | number = process.env.PORT || 8001;
+const connection_url : string = 'mongodb+srv://Pavel:4xSzHb2SeAdAydKR@cluster0.xwykf.mongodb.net/role_access_chat?retryWrites=true&w=majority'
+ 'mongodb://localhost:27017/role_acces_chat'
+
 //Middlewares
 app.use(expess.json())
 app.use(Cors())
@@ -33,14 +33,14 @@ app.use('', dialogs)
 app.use('', messages)
 
 //DB Config
-mongoose.connect(connection_url, {
+mongoose.connect(connection_url , {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true
 
 })
 
-mongoose.connection.on('error', err => {
+mongoose.connection.on('error', (err: Error) => {
     console.log(err);
 });
 
